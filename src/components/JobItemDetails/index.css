@@ -1,0 +1,39 @@
+.jobDetails {
+  background-color: black;
+  min-height: 90vh;
+  color: white;
+}
+
+.unordered-skills {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.list-skill {
+  list-style-type: none;
+  display: flex;
+  margin: 5px 30px;
+}
+
+.skill-logos {
+  width: 50px;
+  padding: 5px;
+}
+
+.part {
+  display: flex;
+}
+
+.jobSimilarProducts {
+  max-width: 500px;
+}
+
+.similar {
+  margin-left: 50px;
+}
+
+.popular {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
