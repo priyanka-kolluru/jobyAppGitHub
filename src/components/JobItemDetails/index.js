@@ -2,11 +2,12 @@ import './index.css'
 import {Component} from 'react'
 import Cookies from 'js-cookie'
 
-import Loader from 'react-loader-spinner'
 import {FaStar} from 'react-icons/fa'
 import {IoBagSharp, IoLocationSharp} from 'react-icons/io5'
 
+import Loader from 'react-loader-spinner'
 import Header from '../Header'
+import similarProductsDataComponent from '../similarProductsData'
 
 const apiStatusConstants = {
   initial: 'INITIAL',
@@ -88,47 +89,6 @@ class JobItemDetails extends Component {
     description: each.description,
   })
 
-  getHtmlData = each => {
-    const {
-      companyLogoUrl,
-      employmentType,
-      location,
-      packagePerAnnum,
-      jobDescription,
-      rating,
-      title,
-    } = each
-
-    return (
-      <div className="jobs jobSimilarProducts">
-        <div className="inner1-part1">
-          <img
-            src={companyLogoUrl}
-            alt="company logo"
-            className="companyLogo"
-          />
-          <div>
-            <h1 className="title-container">{title}</h1>
-            <p className="title-container">
-              <FaStar className="star" />
-              {rating}
-            </p>
-          </div>
-        </div>
-        <div className="part2">
-          <h1 className="description">Description</h1>
-          <p>{jobDescription}</p>
-        </div>
-        <div className="inner1-part1">
-          <IoLocationSharp />
-          <p className="job-location">{location}</p>
-          <IoBagSharp />
-          <p className="job-location">{employmentType}</p>
-        </div>
-      </div>
-    )
-  }
-
   renderJobsDetailsView = () => {
     const {jobDetails, similarProductsData} = this.state
     const {
@@ -142,6 +102,7 @@ class JobItemDetails extends Component {
       lifeAtCompany,
       skills,
     } = jobDetails
+
     const skills1 = skills.map(each => this.getSkills(each))
     const life = this.getSkills(lifeAtCompany)
 
@@ -204,9 +165,12 @@ class JobItemDetails extends Component {
           </div>
           <h1 className="similar">Similar Jobs</h1>
           <ul className="popular">
-            {similarProductsData.map(eachProduct =>
-              this.getHtmlData(eachProduct),
-            )}
+            {similarProductsData.map(eachProduct => (
+              <similarProductsDataComponent
+                list={eachProduct}
+                key={eachProduct.id}
+              />
+            ))}
           </ul>
         </div>
       </>
@@ -228,7 +192,7 @@ class JobItemDetails extends Component {
       <p className="para-notFound">
         We cannot seem to find the page you are looking for.
       </p>
-      <button type="button" className="btn" onClick={this.onRetry()}>
+      <button type="button" className="btn" onClick={this.onRetry}>
         Retry
       </button>
     </div>
